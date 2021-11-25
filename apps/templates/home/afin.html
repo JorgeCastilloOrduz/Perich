@@ -1,0 +1,105 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Desplazamiento{% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Afín</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Desplazamiento</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Cifrar</h5>
+                                </div>
+                                <div class="card-block">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Texto claro</label>
+                                            <textarea class="form-control" name="texto_claro"id="exampleFormControlTextarea1" rows="3" placeholder="Texto claro"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Clave</label>
+                                            <input type="text" class="form-control" placeholder="Clave">
+                                        </div>                                        
+                                        <button type="submit" class="btn btn-success">Cifrar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Descifrar</h5>
+                                </div>
+                                <div class="card-block">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Texto cifrado</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Texto claro"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>¿Conoce la clave?</label>
+                                            <input type="text" class="form-control" placeholder="Clave">
+                                        </div>                                         
+                                        <button type="submit" class="btn btn-primary">Descifrar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Resultado</h5>
+                                </div>
+                                <div class="card-block">
+                                    <form>
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Texto claro</label>
+                                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Texto claro"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Clave</label>
+                                            <input type="text" class="form-control" placeholder="Clave">
+                                        </div>                                        
+                                        <button type="submit" class="btn btn-success">Cifrar</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
