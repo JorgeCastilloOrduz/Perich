@@ -33,29 +33,14 @@
 </head>
 
 <body>
-
-    <!-- [ Pre-loader ] start -->
-    <div class="loader-bg">
-        <div class="loader-track">
-            <div class="loader-fill"></div>
-        </div>
-    </div>
-
-    <!-- SideBar -->
-    {% include 'includes/sidebar.html' %}
-
-    <div class="pcoded-main-container">
-        <div class="pcoded-wrapper">
-
-            {% block content %}{% endblock content %}
-
-        </div>
-    </div>
+    
+    {% block content %}{% endblock content %}
 
     {% include 'includes/scripts.html' %}
 
     <!-- Specific Page JS goes HERE  -->
-    {% block javascripts %}{% endblock javascripts %}
+    {% block javascripts %}{% endblock javascripts %}    
 
 </body>
 </html>
+
