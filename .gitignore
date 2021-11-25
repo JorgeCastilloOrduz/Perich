@@ -6,9 +6,7 @@ __pycache__/
 *.pytest_cache
 .coverage
 
-# database & logs
-*.db
-*.sqlite3
+# logs
 *.log
 
 # venv
@@ -30,4 +28,3 @@ package-lock.json
 apps/static/assets/node_modules
 apps/static/assets/yarn.lock
 apps/static/assets/.temp
-
