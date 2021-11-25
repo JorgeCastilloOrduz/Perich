@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from flask import render_template, request
+from flask import Flask, render_template, request, flash
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 
@@ -37,6 +37,13 @@ def route_template(template):
     except:
         return render_template('home/page-500.html'), 500
 
+
+@blueprint.route("/desplazamiento_cifrar", methods=["POST", "GET"])
+def desplazamiento_cifrar():
+    text_claro = request.form['texto_claro']
+    key = request.form['clave_desplazamiento']
+    # flash(str(request.form['texto_claro']))
+    return render_template('home/desplazamiento.html',segment="",texto_claro=text_claro, clave=key)
 
 # Helper - Extract current page name from request
 def get_segment(request):
