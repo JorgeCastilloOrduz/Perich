@@ -1,0 +1,72 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} UI Forms {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="pcoded-content">
+    <div class="pcoded-inner-content">
+        <!-- [ breadcrumb ] start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-12">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Cifrado por Desplazamiento</h5>
+                        </div>
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                            <li class="breadcrumb-item">Herramientas</li>
+                            <li class="breadcrumb-item">Cifrados</li>
+                            <li class="breadcrumb-item"><a href="/shift.html">Cifrado por Desplazamiento</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- [ breadcrumb ] end -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- [ Main Content ] start -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5>Instrucciones? (No se que poner aca)</h5>
+                                <hr>
+                                <form>
+                                    <div class="form-group">
+                                        <label>Texto Claro</label>
+                                        <textarea class="form-control" id="textoclaro" rows="5" placeholder="Insertar Texto"></textarea>
+                                    </div>
+                                </form>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <button class="btn btn-primary" type="button"><i class="feather icon-arrow-down"></i>Cifrar</button>
+                                        <button class="btn btn-secondary" type="button"><i class="feather icon-arrow-up"></i>Decifrar</button>
+                                    </div>
+                                    <input type="text" class="form-control" id="clave" placeholder="Insertar Clave">
+                                </div>
+                                <form>
+                                    <div class="form-group">
+                                        <label>Texto Cifrado</label>
+                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="Insertar Texto"></textarea>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
