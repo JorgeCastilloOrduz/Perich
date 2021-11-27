@@ -40,7 +40,7 @@ $ # Access the dashboard in browser: http://127.0.0.1:5000/
 The project is coded using blueprints, app factory pattern, dual configuration profile (development and production) and an intuitive structure presented bellow:
 
 ```bash
-***********************************************************************************************************
+**********************************************************************************************************
 
 < ROOT >
    |
@@ -75,5 +75,5 @@ The project is coded using blueprints, app factory pattern, dual configuration p
    |-- .env                                 # Inject Configuration via Environment
    |-- run.py                               # Start the app - WSGI gateway
 
-***********************************************************************************************************
+**********************************************************************************************************
 ```
