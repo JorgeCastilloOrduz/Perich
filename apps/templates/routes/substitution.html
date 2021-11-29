@@ -1,0 +1,186 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Sustitución {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Sustitución</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Sustitución</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    
+                    <div class="row">
+                        <div class="col-sm-12">   
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                {% if scroll == "criptoanalisis" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                {% elif scroll == "descifrar" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                </li>
+                                {% elif scroll == "atacar"%}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                {% if scroll == "cifrar" or scroll is not defined%}
+                                <div class="tab-pane fade show active" id="cifrar" role="tabpanel" aria-labelledby="cifrar-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="cifrar" role="tabpanel" aria-labelledby="cifrar-tab">
+                                {% endif %}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Cifrar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/substitution_code" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_cifrar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Texto claro">{{texto_claro_cifrar}}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Clave de Sustitución</label>
+                                                    <br>
+                                                    <div class=row>
+                                                        <div class="col-sm-4"><h6>ABCDEFGHIJKLMNOPQRSTUVWXYZ</h6></div>                                                
+                                                    </div>                                                                                       
+                                                    <input type="text" name="clave_desplazamiento_cifrar" class="form-control" placeholder="Clave" value="{{clave_cifrar}}"></input>
+                                                </div>                            
+                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar">Cifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-success" name = "action" value="clave">Generar clave</button>
+                                                </span>
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_sustitucion">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_sustitucion" rows="3">{{ texto_cifrado_cifrar }}</textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  DESCRIFRAR  -->
+                                {% if scroll == "descifrar" %}
+                                <div class="tab-pane fade show active" id="descifrar" role="tabpanel" aria-labelledby="descifrar-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="descifrar" role="tabpanel" aria-labelledby="descifrar-tab">                                    
+                                {% endif %}
+                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Descifrar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/substitution_decode" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_descifrar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_descifrar}}</textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Clave de Sustitución</label>
+                                                    <br>
+                                                    <div class=row>
+                                                        <div class="col-sm-4"><h6>ABCDDFGHIJKLMNOPQRSTUVWXYZ</h6></div>                                                
+                                                    </div>                                                                                       
+                                                    <input type="text" name="clave_desplazamiento_descifrar" class="form-control" placeholder="Clave" value="{{clave_descifrar}}">
+                                                </div>                            
+                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar">Descifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-info" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                </span>
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_descifrar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_descifrar" id="texto_claro_descifrar" rows="3" placeholder="">{{texto_claro_descifrar}}</textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% if scroll == "criptoanalisis" %}
+                                <div class="tab-pane fade show active" id="criptoanalisis" role="tabpanel" aria-labelledby="criptoanalisis-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="criptoanalisis" role="tabpanel" aria-labelledby="criptoanalisis-tab">
+                                {% endif %}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Criptoanálisis</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/substitution_decode" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_descifrar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_criptoanalisis}}</textarea>
+                                                </div>                                 
+                                                <button type="submit" class="btn btn-warning" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                </span>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}{% endblock javascripts %}
