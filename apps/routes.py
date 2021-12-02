@@ -1,7 +1,6 @@
 from flask import Blueprint
 from flask import render_template, request
 from jinja2 import TemplateNotFound
-import requests
 import apps.substitution
 import apps.vigenere
 import apps.permutation
