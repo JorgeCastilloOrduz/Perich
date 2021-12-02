@@ -296,15 +296,6 @@ def hill_decode():
 
 
 
-def get_tables(htmldoc):
-
-    f = open(htmldoc, encoding="utf8")     
-    soup = BeautifulSoup(f)
-    f.close()
-    return soup.find_all('table')
-    
-
-
 @bp.route('/<template>')
 def route_template(template):
 
