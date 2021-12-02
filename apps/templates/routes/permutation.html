@@ -1,0 +1,351 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Permutación {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Permutación</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Permutación</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    
+                    <div class="row">
+                        <div class="col-sm-12">   
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                {% if scroll == "criptoanalisis" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                {% elif scroll == "descifrar" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <!-- CIFRAR -->
+                            <div class="tab-content" id="myTabContent">
+                                {% if scroll == "cifrar" or scroll is not defined%}
+                                <div class="tab-pane fade show active" id="cifrar" role="tabpanel" aria-labelledby="cifrar-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="cifrar" role="tabpanel" aria-labelledby="cifrar-tab">
+                                {% endif %}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Cifrar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/permutation_code" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_cifrar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Texto claro">{{texto_claro_cifrar}}</textarea>
+                                                </div>
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                
+                                                <div class="form-group">
+                                                    <label>Clave</label>
+                                                    <br>
+                                                    <h6>{{numeros}}</h6>                                                                                      
+                                                    <input type="text" name="clave_cifrar" class="form-control" placeholder="Clave" value="{{clave_cifrar}}"></input>
+                                                    <br>
+                                                    <label>Tamaño de la clave</label>
+                                                    <br>
+                                                    <div class="col-sm-4" style="padding: 0px; margin: 0px"><input type="text" name="clave_size" class="form-control" placeholder="Tamaño" value="{{clave_size}}"></input></div>
+                                                </div>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar">Cifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-dark" name = "action" value="clave">Generar clave</button>
+
+                                                        
+                                                <br><br>
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_sustitucion">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_sustitucion" rows="3">{{ texto_cifrado_cifrar }}</textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  DESCRIFRAR  -->
+                                {% if scroll == "descifrar" %}
+                                <div class="tab-pane fade show active" id="descifrar" role="tabpanel" aria-labelledby="descifrar-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="descifrar" role="tabpanel" aria-labelledby="descifrar-tab">                                    
+                                {% endif %}                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Descifrar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/permutation_decode" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_descifrar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_descifrar}}</textarea>
+                                                </div>
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <br>
+                                                <div class="form-group">
+                                                    <label>Clave</label>
+                                                    <br>
+                                                    <h6>{{numeros}}</h6> 
+                                                    <div class=row>                                        
+                                                    </div>                                                                                       
+                                                    <input type="text" name="clave_descifrar" class="form-control" placeholder="Clave" value="{{clave_descifrar}}">
+                                                </div>                            
+                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar">Descifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                </span>
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_descifrar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_descifrar" id="texto_claro_descifrar" rows="3" placeholder="Texto claro">{{texto_claro_descifrar}}</textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CRIPTOANÁLISIS -->
+                                {% if scroll == "criptoanalisis" %}
+                                <div class="tab-pane fade show active" id="criptoanalisis" role="tabpanel" aria-labelledby="criptoanalisis-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="criptoanalisis" role="tabpanel" aria-labelledby="criptoanalisis-tab">
+                                {% endif %}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Criptoanálisis</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/permutation_decode" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_descifrar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_criptoanalisis}}</textarea>
+                                                </div> 
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <br>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                </span>                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- [ stiped-table ] start -->
+                                    <div class="row">
+                                    <div class="col-xl-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Frecuencia de las letras</h5>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped" id="tabla_letras">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Letra</th>
+                                                                <th>Frecuencia</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for t in frecuencias_letras %}
+                                                                <tr>
+                                                                {% for i in t %}
+                                                                    <td>{{ i }}</td>
+                                                                {% endfor %}
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Frecuencia de los digramas</h5>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped" id="tabla_digramas">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Letra</th>
+                                                                <th>Frecuencia</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for t in frecuencias_digramas %}
+                                                                <tr>
+                                                                {% for i in t %}
+                                                                    <td>{{ i }}</td>
+                                                                {% endfor %}
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--
+                                        <div class="container">
+                                            <table id="tabla_digramas" class="display">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Digrama</th>
+                                                        <th>Frecuencia</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for t in frecuencias_digramas %}
+                                                        <tr>
+                                                        {% for i in t %}
+                                                            <td>{{ i }}</td>
+                                                        {% endfor %}
+                                                        </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>                                     
+                                    </div>
+                                    --> 
+                                    <div class="col-xl-4">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <h5>Frecuencia de trigramas</h5>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Trigrama</th>
+                                                                <th>Frecuencia</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for t in frecuencias_trigramas %}
+                                                                <tr>
+                                                                {% for i in t %}
+                                                                    <td>{{ i }}</td>
+                                                                {% endfor %}
+                                                                </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    <!-- [ stiped-table ] end -->
+                                </div>
+                                <!--  ATACAR  -->
+                                {% if scroll == "atacar" %}
+                                <div class="tab-pane fade show active" id="atacar" role="tabpanel" aria-labelledby="atacar-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="atacar" role="tabpanel" aria-labelledby="atacar-tab">                                    
+                                {% endif %}                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Atacar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/permutation_attack" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_atacar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_atacar" id="texto_claro_atacar" rows="3" placeholder="Texto claro">{{texto_claro_atacar}}</textarea>
+                                                </div>    
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <br>
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_atacar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_atacar" id="texto_cifrado_atacar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_atacar}}</textarea>
+                                                </div>                                               
+                                                                                           
+                                                <button type="submit" class="btn btn-warning" name ="action" value="atacar">Atacar clave</button>
+                                                <br><br><br>                                        
+                                                <div class="form-group">
+                                                    <label>Clave de Sustitución</label>
+                                                    <br>
+                                                    <div class=row>
+                                                        <div class="col-sm-4"><h6>ABCDEFGHIJKLMNOPQRSTUVWXYZ</h6></div>                                                
+                                                    </div>                                                                                       
+                                                    <input type="text" name="clave_atacar" class="form-control" placeholder="Clave" value="{{clave_atacar}}">
+                                                </div>                            
+                                                </span>                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}
+
+<!--
+<link rel="stylesheet" type="text/css" href="/static/assets/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="/static/assets/DataTables/datatables.min.js">
+    $(document).ready( function () {
+    $('#tabla_digramas').DataTable();
+} );
+</script>
+-->
+
+{% endblock javascripts %}
+
+

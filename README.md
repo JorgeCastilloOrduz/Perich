@@ -1,13 +1,13 @@
-# Orange
+# Perich
 
 Aplicación web para la asignatura Criptografía y Teoria de la Información. Hecho por Jorge Luis Castillo Orduz y Juan Pablo Gutiérrez Restrepo.
 
-## How to use it
+## Cómo usarlo de forma local
 
 ```bash
 $ # Get the code
-$ git clone https://github.com/JorgeCastilloOrduz/orange.git
-$ cd orange
+$ git clone https://github.com/JorgeCastilloOrduz/perich.git
+$ cd perich
 $
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
