@@ -8,11 +8,7 @@ import apps.permutation
 import apps.shift
 import apps.afin
 import apps.hill
-import pandas as pd
-from bs4 import BeautifulSoup
-import os
-import urllib
-from lxml import html
+
 
 bp = Blueprint("routes", __name__)
 
