@@ -35,7 +35,7 @@ def code(texto_claro_cifrar,clave_cifrar):
     texto_claro_cifrar_clean = clean_input(texto_claro_cifrar)
     if len(texto_claro_cifrar_clean)%len(clave_as_list)!=0:
         for i in range(len(clave_as_list)-(len(texto_claro_cifrar_clean)%len(clave_as_list))):
-            texto_claro_cifrar_clean = texto_claro_cifrar_clean+"E"
+            texto_claro_cifrar_clean = texto_claro_cifrar_clean+"Z"
 
     
     for i in range(0,len(texto_claro_cifrar_clean),len(clave_as_list)):        

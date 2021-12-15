@@ -9,6 +9,9 @@ $ # Get the code
 $ git clone https://github.com/JorgeCastilloOrduz/perich.git
 $ cd perich
 $
+$ # Install modules - SQLite Database
+$ pip3 install -r requirements.txt
+$
 $ # Virtualenv modules installation (Unix based systems)
 $ virtualenv env
 $ source env/bin/activate
@@ -28,3 +31,4 @@ $ (Windows) set FLASK_ENV=development
 $ (Powershell) $env:FLASK_ENV = "development"
 $
 $ flask run
+

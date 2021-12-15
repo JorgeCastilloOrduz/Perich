@@ -95,8 +95,9 @@
                                                                     <tbody>
                                                                         {% for t in matriz_clave %}
                                                                             <tr>
+                                                                            {% set coordenada = loop.index0 %}
                                                                             {% for i in t %}
-                                                                                <td><div contenteditable>{{ i }}</div></td>
+                                                                                <td><input type="text" name={{"celda_" ~ coordenada|string ~ loop.index0|string}} class="form-control" style="text-align: center;" placeholder="0" value="{{i}}"></input></td>
                                                                             {% endfor %}
                                                                             </tr>
                                                                         {% endfor %}
@@ -105,7 +106,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
                                                     <br>
                                                     <label>Tamaño de la matriz</label>
                                                     <br>
@@ -154,8 +154,9 @@
                                                                     <tbody>
                                                                         {% for t in matriz_clave %}
                                                                             <tr>
+                                                                            {% set coordenada = loop.index0 %}
                                                                             {% for i in t %}
-                                                                                <td><div contenteditable>{{ i }}</div></td>
+                                                                                <td><input type="text" name={{"celda_" ~ coordenada|string ~ loop.index0|string}} class="form-control" style="text-align: center;" placeholder="0" value="{{i}}"></input></td>
                                                                             {% endfor %}
                                                                             </tr>
                                                                         {% endfor %}

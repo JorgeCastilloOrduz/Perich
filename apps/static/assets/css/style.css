@@ -59,6 +59,7 @@ File: style.css
 ==========================  **/
 .matrix {
   position: relative;
+  padding:5px;
 }
 .matrix:before, .matrix:after {
   content: "";

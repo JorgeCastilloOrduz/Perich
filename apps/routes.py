@@ -7,6 +7,7 @@ import apps.permutation
 import apps.shift
 import apps.afin
 import apps.hill
+import random
 
 
 bp = Blueprint("routes", __name__)
@@ -252,35 +253,87 @@ def hill_code():
     texto_claro_cifrar_clean = apps.hill.clean_input(request.form['texto_claro_cifrar']).lower()
 
     if request.form['action'] == 'cifrar':
-        clave, size = apps.hill.generate_matrix(apps.hill.clean_key(request.form['clave_size']))
+        tamanio = apps.hill.clean_key(request.form['clave_size'])
+        clave_limpia, size = apps.hill.generate_matrix(tamanio)
+        
+        matriz_clave = []
+
+        if tamanio is None or tamanio == "":
+            lenght = random.randint(2, 10)
+        else:
+            largo=""
+            for i in tamanio:
+                if i.isdigit():
+                    largo = largo+str(i)
+            lenght = int(largo)
+            if lenght>10:
+                lenght = 10
+            if lenght<2:
+                lenght = 2
+
+        for i in range(lenght):
+            row = []
+            for j in range(lenght):
+                nombre_celda="celda_"+str(i)+str(j)
+                row.append(request.form[nombre_celda])
+            matriz_clave.append(row)
+        
+        texto_cifrado, texto_claro,clave, largo = apps.hill.code(request.form['texto_claro_cifrar'], matriz_clave,lenght)
         
         
-        return render_template('routes/hill.html', texto_claro_cifrar = texto_claro_cifrar_clean, matriz_clave = clave, clave_size = size,
-                                texto_cifrado_cifrar = "Este módulo aún está en construcción", segment='hill', scroll = "cifrar")
+        return render_template('routes/hill.html', texto_claro_cifrar = texto_claro.lower(), matriz_clave = clave, clave_size = largo,
+                                texto_cifrado_cifrar = texto_cifrado, segment='hill', scroll = "cifrar", test=matriz_clave)
     elif request.form['action'] == 'matriz':
         
         clave, size = apps.hill.generate_matrix(apps.hill.clean_key(request.form['clave_size']))
         return render_template('routes/hill.html', texto_claro_cifrar = texto_claro_cifrar_clean, matriz_clave = clave, clave_size = size,
-                                texto_cifrado_cifrar = "Este módulo aún está en construcción", segment='hill', scroll = "cifrar")
+                                texto_cifrado_cifrar = "", segment='hill', scroll = "cifrar")
     else:       
         clave, size = apps.hill.generate_key(apps.hill.clean_key(request.form['clave_size']))
 
         return render_template('routes/hill.html', texto_claro_cifrar = texto_claro_cifrar_clean, matriz_clave = clave, clave_size = size,
-                                texto_cifrado_cifrar = "Este módulo aún está en construcción", segment='hill', scroll = "cifrar")
+                                texto_cifrado_cifrar = "", segment='hill', scroll = "cifrar")
 
 @bp.route('/hill_decode', methods=["POST", "GET"])
 def hill_decode():
     texto_cifrado_descifrar_clean = apps.hill.clean_input(request.form['texto_cifrado_descifrar'])
 
     if request.form['action'] == 'descifrar':
+        tamanio = apps.hill.clean_key(request.form['clave_size'])
+        clave_limpia, size = apps.hill.generate_matrix(tamanio)
+        
+        matriz_clave = []
+
+        if tamanio is None or tamanio == "":
+            lenght = random.randint(2, 10)
+        else:
+            largo=""
+            for i in tamanio:
+                if i.isdigit():
+                    largo = largo+str(i)
+            lenght = int(largo)
+            if lenght>10:
+                lenght = 10
+            if lenght<2:
+                lenght = 2
+
+        for i in range(lenght):
+            row = []
+            for j in range(lenght):
+                nombre_celda="celda_"+str(i)+str(j)
+                row.append(request.form[nombre_celda])
+            matriz_clave.append(row)
+
+        texto_claro, texto_cifrado,clave, largo = apps.hill.decode(request.form['texto_cifrado_descifrar'], matriz_clave,lenght)
+
         if len(request.form['clave_size'])==0:
             letters,digrams,trigrams = apps.hill.criptoanalisis(request.form['texto_cifrado_descifrar'])        
             return render_template('routes/hill.html', texto_cifrado_criptoanalisis = apps.hill.clean_input(request.form['texto_cifrado_descifrar']), 
                                 frecuencias_letras = letters, frecuencias_digramas = digrams, frecuencias_trigramas = trigrams , segment="hill", scroll = "criptoanalisis")        
 
-        clave, size = apps.hill.generate_matrix(apps.hill.clean_key(request.form['clave_size']))
-        return render_template('routes/hill.html', texto_claro_descifrar = "Este módulo aún está en construcción", matriz_clave = clave, clave_size = size,
-                                texto_cifrado_descifrar = texto_cifrado_descifrar_clean, segment='hill', scroll = "descifrar")
+        
+        return render_template('routes/hill.html', texto_claro_descifrar = texto_claro, matriz_clave = clave, clave_size = largo,
+                                texto_cifrado_descifrar = texto_cifrado, segment='hill', scroll = "descifrar")
         
 
     elif request.form['action'] == 'matriz':
