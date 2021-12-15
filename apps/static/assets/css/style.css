@@ -6387,6 +6387,18 @@ body.layout-8 .card:hover {
   border: 1px solid #ddd;
 }
 
+iframe {
+  width: 560px;
+  height: 315px;
+  margin: 0 auto;
+  background-color: #777;
+}
+
+iframe {
+  display: block;
+  border-style:none;
+}
+
 /* ===================== to do page ============================= */
 #task-container ul {
   overflow: hidden;
