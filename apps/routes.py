@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import render_template, request
 from jinja2 import TemplateNotFound
+from apps.controllers import galery_controller
 import apps.substitution
 import apps.vigenere
 import apps.permutation
@@ -9,7 +10,8 @@ import apps.afin
 import apps.hill
 import apps.NEAR
 import random
-from controllers import *
+import os
+from apps.controllers import *
 
 bp = Blueprint("routes", __name__)
 
@@ -21,10 +23,12 @@ def route_default():
 
 @bp.route('/galery')
 def galery():
+		res = galery_controller.get_list()
+		return ((res))
 		#galery.get_list= classmethod(galery.get_list)
 		#galery.get_list()
     
-		return render_template('pages/galery.html')
+		#return render_template('pages/galery.html')
 
 
 @bp.route('/shift_code', methods=["POST", "GET"])
