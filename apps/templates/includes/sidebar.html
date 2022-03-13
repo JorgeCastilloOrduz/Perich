@@ -1,51 +1,29 @@
-
-    <nav class="pcoded-navbar">
-        <div class="navbar-wrapper">
-            <div class="navbar-brand header-logo">
-                <a target="_blank" class="b-brand">
-                    <div class="b-bg">
-                        <a><img src="/static/assets/images/favicon.png" width="32" style="margin-right: 10px; border-radius: 10;"></a>
-                    </div>
-                    <span class="b-title">Perich Dapp</span>
-                </a>
-                <a class="mobile-menu" id="mobile-collapse" href="javascript:"><span></span></a>
-            </div>
-            <div class="navbar-content scroll-div">
-                <ul class="nav pcoded-inner-navbar">
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>Navigation</label>
-                    </li>
-                    <li data-username="dashboard" 
-                        class="nav-item {% if 'index' in segment %} active {% endif %}">
-                        <a href="/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Home</span></a>
-                    </li>
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>Criptosistemas</label>
-                    </li>
-                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-unlock"></i></span><span class="pcoded-mtext">Clásicos</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="/shift.html" class="">Desplazamiento</a></li>
-                            <li class=""><a href="/substitution.html" class="">Sustitución</a></li>
-                            <li class=""><a href="/afin.html" class="">Afín</a></li>
-                            <li class=""><a href="/vigenere.html" class="">Vigenere</a></li>
-                            <li class=""><a href="/hill.html" class="">Hill</a></li>
-                            <li class=""><a href="/permutation.html" class="">Permutación</a></li>
-                        </ul>
-                    </li> 
-                    <li class="nav-item pcoded-menu-caption">
-                        <label>NFT</label>
-                    </li>
-                    <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds" class="nav-item pcoded-hasmenu">
-                        <a href="javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-cpu"></i></span><span class="pcoded-mtext">Certificados</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class=""><a href="/academic_certificate.html" class="">Certificados académicos</a></li>
-                        </ul>
-                    </li>
-
-                    
-                    
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/galery">Galeria</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Pricing</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown link
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
         </div>
-    </nav>
+      </li>
+    </ul>
+  </div>
+</nav>
