@@ -372,6 +372,11 @@ def nft_list():
     answer=apps.NEAR.nft_list()
     return render_template('routes/academic_certificate.html',answer=answer,segment="certificate", scroll="list_nft")
 
+@bp.route('/nft_list_by_account', methods=["POST", "GET"])
+def nft_list_by_account():
+    answer=apps.NEAR.nft_list_by_account(request.form['account'])
+    return render_template('routes/academic_certificate.html',answer_account=answer,segment="certificate", scroll="list_nft")
+
 @bp.route('/<template>')
 def route_template(template):
 

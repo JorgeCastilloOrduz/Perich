@@ -13,11 +13,7 @@ from pdf2image import convert_from_path
 
 def mintCertificate(student_first_name,student_last_name,student_nin,course_name,professor_name,graduation_date):    
     token_call = str(subprocess.check_output("apps/new_token.sh"))
-    id="perich.testnet"
-    contract= "dev-1644439951111-36177096095742"
-    x = len("View call: dev-1644439951111-36177096095742.getNewToken()")
-    token_id=str(token_call[x+5:len(token_call)-4])
-    
+    token_id=str(token_call[55:len(token_call)-4])   
     image_name= createPDF(student_first_name,student_last_name,student_nin,course_name,professor_name,graduation_date,token_id)
     ipfs_result = subprocess.check_output("apps/add_ipfs.sh").decode("utf-8").split('\n')
     files = {}
@@ -31,7 +27,11 @@ def mintCertificate(student_first_name,student_last_name,student_nin,course_name
 
     new_certificate(student_nin, token_id)   
     with open ('apps/mint.sh', 'w') as rsh:
-        rsh.write("#!/bin/bash \n near call perich.testnet nft_mint '{\"token_id\": \""+token_id+"\", \"receiver_id\": \"perich.testnet\", \"token_metadata\": { \"description\":\""+" Certificamos que "+student_first_name+" "+student_last_name+ " completó el curso "+ course_name + "\",\"title\": \""+ title+"\",\"student_first_name \": \""+ student_first_name+"\", \"student_last_name \": \""+ student_last_name+"\", \"student_nin \": \""+ student_nin+"\", \"course_name \": \""+ course_name+"\", \"professor_name \": \""+ professor_name+"\", \"graduation_date \": \""+ graduation_date+"\",\"media\": \"https://ipfs.io/ipfs/"+link+"\", \"copies\": 1}}' --accountId perich.testnet --deposit 0.1")
+        rsh.write("#!/bin/bash \n near call nftattootest.testnet nft_mint '{\"token_id\": \""+token_id+"\", \"receiver_id\": \"nftattootest.testnet\", \"token_metadata\": { \"description\":\""+" Certificamos que "+student_first_name+" "+student_last_name+ " completó el curso "+ course_name + "\",\"title\": \""+ title+"\",\"student_first_name \": \""+ student_first_name+"\", \"student_last_name \": \""+ student_last_name+"\", \"student_nin \": \""+ student_nin+"\", \"course_name \": \""+ course_name+"\", \"professor_name \": \""+ professor_name+"\", \"graduation_date \": \""+ graduation_date+"\",\"media\": \"https://ipfs.io/ipfs/"+link+"\", \"copies\": 1}}' --accountId nftattootest.testnet --deposit 0.1")
+
+    # with open ('apps/mint.sh', 'w') as rsh:
+    #     rsh.write("#!/bin/bash \n near view nftattootest.testnet nft_tokens_for_owner '{\"account_id\":\"nftattootest.testnet\"}")
+
 
     minted_result = subprocess.check_output("apps/mint.sh")
     nft_result = subprocess.check_output("apps/nft_tokens_for_owner.sh")
@@ -40,11 +40,18 @@ def mintCertificate(student_first_name,student_last_name,student_nin,course_name
 
 
 def nft_list():
-    id="perich.testnet"
+    id="nftattootest.testnet"
     with open ('apps/nft_tokens_for_owner.sh', 'w') as rsh:
-        rsh.write("#!/bin/bash \n near view perich.testnet nft_tokens_for_owner '{\"account_id\":\"perich.testnet\"}' #")
+        rsh.write("#!/bin/bash \n near view nftattootest.testnet nft_tokens_for_owner '{\"account_id\":\"nftattootest.testnet\"}' #")
     result = subprocess.check_output("apps/nft_tokens_for_owner.sh")
     return result.decode("utf-8") 
+
+def nft_list_by_account(account):
+    id="nftattootest.testnet"
+    with open ('apps/nft_tokens_for_owner.sh', 'w') as rsh:
+        rsh.write("#!/bin/bash \n near view nftattootest.testnet nft_tokens_for_owner '{\"account_id\":\""+account+"\"}' #")
+    result = subprocess.check_output("apps/nft_tokens_for_owner.sh")
+    return result.decode("utf-8")
 
 
 def createPDF(student_first_name,student_last_name,student_nin,course_name,professor_name,graduation_date,token_id):
@@ -121,7 +128,7 @@ def new_certificate(student_national_id, token_id):
     print(token_id)
     print(type(token_id))
     with open ('apps/new_certificate.sh', 'w') as rsh:
-        rsh.write("#!/bin/bash \n near call dev-1644439951111-36177096095742 setCertificate '{\"student_national_id\": \""+student_national_id+"\", \"token_id\": \""+token_id+"\"}' --accountId perich.testnet --deposit 0.1")
+        rsh.write("#!/bin/bash \n near call dev-1644439951111-36177096095742 setCertificate '{\"student_national_id\": \""+student_national_id+"\", \"token_id\": \""+token_id+"\"}' --accountId nftattootest.testnet --deposit 0.1")
 
     
 
@@ -141,7 +148,7 @@ def new_certificate(student_national_id, token_id):
 #   "params": {
 #     "request_type": "call_function",
 #     "finality": "final",
-#     "account_id": "perich.testnet",
+#     "account_id": "nftattootest.testnet",
 #     "method_name": "nft_metadata",
 #     "args_base64": "e30="
 #   }

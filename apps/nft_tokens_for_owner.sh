@@ -1,2 +1,2 @@
 #!/bin/bash 
- near view perich.testnet nft_tokens_for_owner '{"account_id":"perich.testnet"}' #
+ near view nftattootest.testnet nft_tokens_for_owner '{"account_id":"alice.nftattootest.testnet"}' #
