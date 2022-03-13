@@ -1,0 +1,450 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Desplazamiento {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Data encryption standard (DES)</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Desplazamiento</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    
+                    <div class="row">
+                        <div class="col-sm-12">   
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                {% if scroll == "criptoanalisis" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
+                                    </li>
+                                {% elif scroll == "descifrar" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
+                                    </li>
+                                {% elif scroll == "atacar" %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="cifrar-tab" data-toggle="tab" href="#cifrar" role="tab" aria-controls="cifrar" aria-selected="true">Cifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <!-- CIFRAR -->
+                            <div class="tab-content" id="myTabContent">
+                                {% if scroll == "cifrar" or scroll is not defined%}
+                                <div class="tab-pane fade show active" id="cifrar" role="tabpanel" aria-labelledby="cifrar-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="cifrar" role="tabpanel" aria-labelledby="cifrar-tab">
+                                {% endif %}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Cifrar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/DES_code" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_cifrar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Texto claro">{{texto_claro_cifrar}}</textarea>
+                                                </div>
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <br>
+                                                <div class="container">
+                                                    <div class="row">
+                                                        <h2>Select a file to upload</h2>
+                                                        <p>
+                                                            {% with messages = get_flashed_messages() %}
+                                                            {% if messages %}
+                                                                <ul>
+                                                                {% for message in messages %}
+                                                                <li>{{ message }}</li>
+                                                                {% endfor %}
+                                                                </ul>
+                                                            {% endif %}
+                                                            {% endwith %}
+                                                        </p>
+                                                        {% if filename %}
+                                                            <div>
+                                                                <img src="{{ url_for('display_image', filename=filename) }}">
+                                                            </div>
+                                                        {% endif %}
+                                                        <form method="post" action="/" enctype="multipart/form-data">
+                                                            <dl>
+                                                                <p>
+                                                                    <input type="file" name="file" class="form-control" autocomplete="off" required>
+                                                                </p>
+                                                            </dl>
+                                                            <p>
+                                                                <input type="submit" value="Submit" class="btn btn-info">
+                                                            </p>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label>Clave (HEX)</label>
+                                                    <br>                                                                                     
+                                                    <input type="text" name="clave_cifrar" class="form-control" placeholder="Clave" value="{{clave_cifrar}}"></input>
+                                                </div>                            
+                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar">Cifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-dark" name = "action" value="clave">Generar clave</button>
+                                                </span>
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_sustitucion">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_cifrar" rows="3">{{ texto_cifrado_cifrar }}</textarea>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  DESCRIFRAR  -->
+                                {% if scroll == "descifrar" %}
+                                <div class="tab-pane fade show active" id="descifrar" role="tabpanel" aria-labelledby="descifrar-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="descifrar" role="tabpanel" aria-labelledby="descifrar-tab">                                    
+                                {% endif %}
+                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Descifrar</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/DES_decode" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_descifrar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_descifrar}}</textarea>
+                                                </div>
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <br>
+                                                <div class="form-group">
+                                                    <label>Clave de Sustitución</label>
+                                                    <br>                                                                                       
+                                                    <input type="text" name="clave_descifrar" class="form-control" placeholder="Clave" value="{{clave_descifrar}}">
+                                                </div>                            
+                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar">Descifrar</button>
+                                                <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                <br>
+                                                <br>                                               
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_descifrar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_descifrar" id="texto_claro_descifrar" rows="3" placeholder="">{{texto_claro_descifrar}}</textarea>
+                                                </div>                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Información</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <div class="row">
+                                                <p style="padding-left: 15px; color:black;">Este criptosistema está implementado con la siguiente tabla de correspondencia:</p>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xl-4">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped" id="tabla_letras">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Letra</th>
+                                                                    <th>Número</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>A</td>
+                                                                    <td>0</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>B</td>
+                                                                    <td>1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>C</td>
+                                                                    <td>2</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>D</td>
+                                                                    <td>3</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>E</td>
+                                                                    <td>4</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>F</td>
+                                                                    <td>5</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>G</td>
+                                                                    <td>6</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>H</td>
+                                                                    <td>7</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>I</td>
+                                                                    <td>8</td>
+                                                                </tr>                                                                
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl-4">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped" id="tabla_digramas">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Letra</th>
+                                                                    <th>Número</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>                                                                
+                                                                <tr>
+                                                                    <td>J</td>
+                                                                    <td>9</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>K</td>
+                                                                    <td>10</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>L</td>
+                                                                    <td>11</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>M</td>
+                                                                    <td>12</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>N</td>
+                                                                    <td>13</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>O</td>
+                                                                    <td>14</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>P</td>
+                                                                    <td>15</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Q</td>
+                                                                    <td>16</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>R</td>
+                                                                    <td>17</td>
+                                                                </tr>       
+                                                            </tbody>
+                                                        </table>
+                                                    </div>    
+                                                </div>
+                                                <div class="col-xl-4">                                                    
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Letra</th>
+                                                                    <th>Número</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>S</td>
+                                                                    <td>18</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>T</td>
+                                                                    <td>19</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>U</td>
+                                                                    <td>20</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>V</td>
+                                                                    <td>21</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>W</td>
+                                                                    <td>22</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>X</td>
+                                                                    <td>23</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Y</td>
+                                                                    <td>24</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Z</td>
+                                                                    <td >25</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>                                                        
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- CRIPTOANÁLISIS -->
+                                {% if scroll == "criptoanalisis" %}
+                                <div class="tab-pane fade show active" id="criptoanalisis" role="tabpanel" aria-labelledby="criptoanalisis-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="criptoanalisis" role="tabpanel" aria-labelledby="criptoanalisis-tab">
+                                {% endif %}
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Criptoanálisis</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/DES_decode" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_criptoanalisis">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_criptoanalisis}}</textarea>
+                                                </div> 
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                <br>
+                                                <br>
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_descifrar">Posibles textos claros</label>
+                                                    <textarea class="form-control" name="posibles_textos_claros" id="posibles_textos_claros" rows="26" placeholder="">{{posibles_textos_claros}}</textarea>
+                                                </div>                                                 
+                                            </form>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+
+                                
+                                <!--  ATACAR  -->
+                                {% if scroll == "atacar" %}
+                                <div class="tab-pane fade show active" id="atacar" role="tabpanel" aria-labelledby="atacar-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="atacar" role="tabpanel" aria-labelledby="atacar-tab">                                    
+                                {% endif %}                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Ataque de texto claro conocido</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <p style="color:black">En este modelo de ataque se espera que a partir de un texto claro y su correspondiente texto cifrado, se encuentre la clave utilizada para cifrar.</p>
+                                            <br>
+                                            <form action="/DES_attack" method="post">
+                                                <div class="form-group" >
+                                                    <label for="texto_claro_atacar">Texto claro</label>
+                                                    <textarea class="form-control" name="texto_claro_atacar" id="texto_claro_atacar" rows="3" placeholder="Texto claro">{{texto_claro_atacar}}</textarea>
+                                                </div>    
+                                                <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
+                                                <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
+                                                <br>
+                                                <div class="form-group" >
+                                                    <label for="texto_cifrado_atacar">Texto cifrado</label>
+                                                    <textarea class="form-control" name="texto_cifrado_atacar" id="texto_cifrado_atacar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_atacar}}</textarea>
+                                                </div>                                               
+                                                                                           
+                                                <button type="submit" class="btn btn-warning" name ="action" value="atacar">Atacar clave</button>
+                                                <br><br><br>                                        
+                                                <div class="form-group">
+                                                    <label>Clave</label>
+                                                    <br>                                                                                     
+                                                    <input type="text" name="clave_atacar" class="form-control" placeholder="Clave" value="{{clave_atacar}}">
+                                                </div>                            
+                                                </span>                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}
+
+<!--
+<link rel="stylesheet" type="text/css" href="/static/assets/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="/static/assets/DataTables/datatables.min.js">
+    $(document).ready( function () {
+    $('#tabla_digramas').DataTable();
+} );
+</script>
+-->
+
+{% endblock javascripts %}
+
+

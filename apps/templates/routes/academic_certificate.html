@@ -1,0 +1,184 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Certificados Académimcos {% endblock %} 
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Certificados académicos</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Certificados académicos</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->                    
+                    <div class="row">
+                        <div class="col-sm-12">   
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                {% if scroll == "create" or scroll is not defined %}
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="true">Crear</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="list_nft-tab" data-toggle="tab" href="#list_nft" role="tab" aria-controls="list_nft" aria-selected="false">Certificados</a>
+                                    </li>                                    
+                                {% elif scroll == "list_nft" %}
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase" id="create-tab" data-toggle="tab" href="#create" role="tab" aria-controls="create" aria-selected="false">Crear</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-uppercase active" id="list_nft-tab" data-toggle="tab" href="#list_nft" role="tab" aria-controls="list_nft" aria-selected="true">NFTs</a>
+                                </li>                                 
+                                {% endif %}
+                            </ul>
+                            <!-- CREATE -->
+                            <div class="tab-content" id="myTabContent">
+                                {% if scroll == "create" or scroll is not defined %}
+                                <div class="tab-pane fade show active" id="create" role="tabpanel" aria-labelledby="create-tab">
+                                {% else %}
+                                <div class="tab-pane fade" id="create" role="tabpanel" aria-labelledby="create-tab">
+                                {% endif %}
+                                    
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>INFORMACIÓN</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <p>Esta será la información que se guardará en la Metadata del Non-Fungible Token (NFT) que se creará para el certificado.</p>
+                                            <form action="/mint_nft" method="post">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Información del estudiante</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="form-group" >
+                                                            <label for="student_first_name">Nombres</label>
+                                                            <textarea class="form-control" name="student_first_name" id="student_first_name" rows="1" placeholder="">{{student_first_name}}</textarea>
+                                                        </div>
+                                                        <div class="form-group" >
+                                                            <label for="student_last_name">Apellidos</label>
+                                                            <textarea class="form-control" name="student_last_name" id="student_last_name" rows="1" placeholder="">{{student_last_name}}</textarea>
+                                                        </div>
+                                                        <div class="form-group" >
+                                                            <label for="student_nin">Número de cédula</label>
+                                                            <textarea class="form-control" name="student_nin" id="student_nin" rows="1" placeholder="">{{student_nin}}</textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <span>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Información del curso</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <div class="form-group" >
+                                                            <label for="course_name">Nombre del curso</label>
+                                                            <textarea class="form-control" name="course_name" id="course_name" rows="1" placeholder="">{{course_name}}</textarea>
+                                                        </div>
+                                                        <div class="form-group" >
+                                                            <label for="professor_name">Nombre del profesor</label>
+                                                            <textarea class="form-control" name="professor_name" id="professor_name" rows="1" placeholder="">{{professor_name}}</textarea>
+                                                        </div>
+                                                        <div class="form-group" >
+                                                            <label for="graduation_date">Fecha de graduación</label>
+                                                            <textarea class="form-control" name="graduation_date" id="graduation_date" rows="1" placeholder="">{{graduation_date}}</textarea>
+                                                        </div>                                     
+                                                    </div>
+                                                </div>
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>MINT</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <p>Por favor verifique la información ingresada. Si todo está correcto, es hora de "Mintear" nuestro certificado.</p>
+                                                        <button type="submit" class="btn btn-warning" name ="action" value="cifrar">Mint</button>      
+                                                    </div>
+                                                </div>
+                                                <div class="card-block">
+                                                    <br>                                                    
+                                                    <div class="form-group" >
+                                                        <label for="answer">Transacción</label>
+                                                        <textarea class="form-control" name="answer" id="answer" rows="1" placeholder="">{{linkTransaction}}</textarea>
+                                                    </div> 
+                                                    <div class="form-group" >
+                                                        <label for="answer">Media</label>
+                                                        <textarea class="form-control" name="answer" id="answer" rows="1" placeholder="">{{linkMedia}}</textarea>
+                                                    </div>          
+                                                    <div class="form-group" >
+                                                        <label for="answer">Answer</label>
+                                                        <textarea class="form-control" name="minted" id="minted" rows="10" placeholder="">{{minted}}</textarea>
+                                                    </div>    
+                                                </div>                                                           
+                                                </span>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  LIST  -->
+                                {% if scroll == "list_nft" %}
+                                <div class="tab-pane fade show active" id="list_nft" role="tabpanel" aria-labelledby="list_nft-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="list_nft" role="tabpanel" aria-labelledby="list_nft-tab">                                    
+                                {% endif %}    
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Answer</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <form action="/nft_list" method="post">   
+                                                <button type="submit" class="btn btn-warning" name ="list" value="list">List NFTs</button> 
+                                                <br> 
+                                                <br>       
+                                                <div class="form-group" >
+                                                    <label for="answer">Answer</label>
+                                                    <textarea class="form-control" name="answer" id="answer" rows="10" placeholder="">{{answer}}</textarea>
+                                                </div>    
+                                                <br>                                                
+                                            </form>
+                                        </div>
+                                    </div>                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>                    
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+
+{% block javascripts %}
+
+<!--
+<link rel="stylesheet" type="text/css" href="/static/assets/DataTables/datatables.min.css"/>
+<script type="text/javascript" src="/static/assets/DataTables/datatables.min.js">
+    $(document).ready( function () {
+    $('#tabla_digramas').DataTable();
+} );
+</script>
+-->
+
+{% endblock javascripts %}
+
+

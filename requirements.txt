@@ -11,3 +11,8 @@ gunicorn==20.1.0
 jinja2==3.0.1
 flask-restx==0.5.1
 numpy
+PyPDF2
+reportlab
+pdf2image
+poppler-utils
+ipfs-api

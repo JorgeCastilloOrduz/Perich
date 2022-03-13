@@ -7,6 +7,7 @@ import apps.permutation
 import apps.shift
 import apps.afin
 import apps.hill
+import apps.NEAR
 import random
 
 
@@ -347,6 +348,29 @@ def hill_decode():
                                 frecuencias_letras = letters, frecuencias_digramas = digrams, frecuencias_trigramas = trigrams , segment="hill", scroll = "criptoanalisis")
 
 
+@bp.route('/mint_nft', methods=["POST", "GET"])
+def mint_nft():    
+    student_first_name = request.form['student_first_name']
+    student_last_name = request.form['student_last_name']
+    student_nin = request.form['student_nin']
+    course_name = request.form['course_name']
+    professor_name = request.form['professor_name']
+    graduation_date = request.form['graduation_date']
+    minted,answer=apps.NEAR.mintCertificate(student_first_name,student_last_name,student_nin,course_name,professor_name,graduation_date)
+    # minted=""
+    # answer=""
+    minted_info=minted.split("\n")
+    link_transaction = minted_info[4]
+    link_media = minted_info[11]
+
+    return render_template('routes/academic_certificate.html',student_first_name=student_first_name,student_last_name=student_last_name,student_nin=student_nin,
+                            course_name=course_name, professor_name=professor_name, graduation_date=graduation_date, 
+                            answer=answer,minted=minted,segment="certificate",linkTransaction=link_transaction,linkMedia=link_media[12:-2], scroll="create")
+
+@bp.route('/nft_list', methods=["POST", "GET"])
+def nft_list():
+    answer=apps.NEAR.nft_list()
+    return render_template('routes/academic_certificate.html',answer=answer,segment="certificate", scroll="list_nft")
 
 @bp.route('/<template>')
 def route_template(template):

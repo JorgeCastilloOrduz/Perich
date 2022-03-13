@@ -1,0 +1,2 @@
+#!/bin/bash 
+ near call perich.testnet nft_mint '{"token_id": "18", "receiver_id": "perich.testnet", "token_metadata": { "description":" Certificamos que David Mateus completó el curso Near","title": "Certificado Académico - Near","student_first_name ": "David", "student_last_name ": "Mateus", "student_nin ": "101010101", "course_name ": "Near", "professor_name ": "Pepito", "graduation_date ": "15/02/2022","media": "https://ipfs.io/ipfs/QmNtUWWuFZihFcdB5Q3HqpsfP6PTyUW8cR2BU7cnmBNwNt", "copies": 1}}' --accountId perich.testnet --deposit 0.1
