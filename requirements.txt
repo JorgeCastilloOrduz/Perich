@@ -16,3 +16,5 @@ reportlab
 pdf2image
 poppler-utils
 ipfs-api
+pandas
+sympy

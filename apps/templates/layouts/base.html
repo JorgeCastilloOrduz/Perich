@@ -3,7 +3,7 @@
 
 <head>
     <title>
-        {% block title %}{% endblock %} - NFTattoo Dapp
+        {% block title %}{% endblock %} - Perich
     </title>
     <!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -44,16 +44,18 @@
         <div class="loader-track">
             <div class="loader-fill"></div>
         </div>
-    </div>
-
+    </div>    
+    
     <!-- SideBar -->
     {% include 'includes/sidebar.html' %}
 
+    <div class="pcoded-main-container">
         <div class="pcoded-wrapper">
 
             {% block content %}{% endblock content %}
 
         </div>
+    </div>
 
     {% include 'includes/scripts.html' %}
 

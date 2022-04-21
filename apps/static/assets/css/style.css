@@ -220,6 +220,43 @@ p.text-muted {
   font-size: 13px;
 }
 
+.container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;  
+  height: 100%;
+  max-width: "560px";
+}
+
+.navbar {
+  width: 100%; /* Full width */
+}
+
+.navbar a{
+  float: center;
+  display: block;
+  color: #000;
+  text-align: center;
+  padding: 30px 30px;
+  text-decoration: none;
+}
+
+.navbar li {
+  margin-left : 1em;
+  margin-right : 1em;
+}
+
 .card {
   border-radius: 0;
   -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
@@ -1552,7 +1589,7 @@ p.text-muted {
           align-items: center;
 }
 .b-brand .b-bg {
-  background: linear-gradient(-135deg, #5CE1E6 0%, #77D2D6 100%);
+  background: rgba(0, 0, 0, 0.0);
   border-radius: 10px;
   width: 35px;
   height: 35px;

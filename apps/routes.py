@@ -8,6 +8,7 @@ import apps.permutation
 import apps.shift
 import apps.afin
 import apps.hill
+import apps.RSA
 import apps.NEAR
 import random
 import os
@@ -410,6 +411,57 @@ def hill_decode():
 
         return render_template('routes/hill.html', texto_cifrado_criptoanalisis=apps.afin.clean_input(request.form['texto_cifrado_descifrar']),
                                frecuencias_letras=letters, frecuencias_digramas=digrams, frecuencias_trigramas=trigrams, segment="hill", scroll="criptoanalisis")
+
+@bp.route('/rsa_code', methods=["POST", "GET"])
+def rsa_code():
+    texto_claro_cifrar_clean = apps.hill.clean_input(request.form['texto_claro_cifrar']).lower()
+    clave_a = apps.afin.clean_key(request.form['clave_cifrar_a'])
+    clave_b = apps.afin.clean_key(request.form['clave_cifrar_b'])
+    clave_p = apps.afin.clean_key(request.form['clave_cifrar_p'])
+    clave_q = apps.afin.clean_key(request.form['clave_cifrar_q'])
+
+    if request.form['action'] == 'cifrar':
+        texto_claro_cifrar,texto_cifrado_cifrar = apps.RSA.code(request.form['texto_claro_cifrar'],clave_p,clave_q,clave_a,clave_b)
+        phi = (clave_p-1)*(clave_q-1)
+        phi_n = "\u03A6 (n) = "+str(phi)
+        return render_template('routes/rsa.html', texto_claro_cifrar=texto_claro_cifrar, texto_cifrado_cifrar=texto_cifrado_cifrar, phi_n = phi_n, 
+                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
+                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
+                                segment='rsa', scroll="cifrar")
+    else:
+        p,q,a,b = apps.RSA.generate_key()
+        phi = (p-1)*(q-1)
+        phi_n = "\u03A6 (n) = "+str(phi)
+        return render_template('routes/rsa.html', texto_claro_cifrar=texto_claro_cifrar_clean, texto_cifrado_cifrar="", phi_n = phi_n,
+                                clave_cifrar_p=p, clave_cifrar_q=q, clave_cifrar_a=a, clave_cifrar_b=b,
+                                clave_descifrar_p=p, clave_descifrar_q=q, clave_descifrar_a=a, clave_descifrar_b=b,
+                                segment='rsa', scroll="cifrar")
+
+@bp.route('/rsa_decode', methods=["POST", "GET"])
+def rsa_decode():
+    print("entra1")
+    texto_cifrado_descifrar_clean = apps.hill.clean_input(request.form['texto_cifrado_descifrar']).lower()
+    clave_a = apps.afin.clean_key(request.form['clave_descifrar_a'])
+    clave_b = apps.afin.clean_key(request.form['clave_descifrar_b'])
+    clave_p = apps.afin.clean_key(request.form['clave_descifrar_p'])
+    clave_q = apps.afin.clean_key(request.form['clave_descifrar_q'])
+    print("entra2")
+    if request.form['action'] == 'descifrar':
+        print("entra3")
+        texto_cifrado_descifrar, texto_claro_descifrar = apps.RSA.decode(request.form['texto_cifrado_descifrar'],clave_p,clave_q,clave_a,clave_b)
+        phi = (clave_p-1)*(clave_q-1)
+        phi_n = "\u03A6 (n) = "+str(phi)
+        return render_template('routes/rsa.html', texto_claro_descifrar=texto_claro_descifrar, texto_cifrado_descifrar=texto_cifrado_descifrar, phi_n = phi_n, 
+                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
+                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
+                                segment='rsa', scroll="descifrar")
+    else:
+        letters, digrams, trigrams = apps.afin.criptoanalisis(request.form['texto_cifrado_descifrar'])
+
+        return render_template('routes/rsa.html', texto_cifrado_descifrar = apps.afin.clean_input(request.form['texto_cifrado_descifrar']), texto_cifrado_criptoanalisis=apps.afin.clean_input(request.form['texto_cifrado_descifrar']),
+                               clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
+                               clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
+                               frecuencias_letras=letters, frecuencias_digramas=digrams, frecuencias_trigramas=trigrams, segment="rsa", scroll="criptoanalisis")
 
 
 @bp.route('/mint_nft', methods=["POST", "GET"])
