@@ -5,10 +5,12 @@ import re
 import pandas as pd
 import numpy as np
 from sympy import *
+from random import randint
 
 abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-df = pd.read_csv('apps/static/files/los-primeros-100-000-numeros-primos.csv')
-df_short = df.head(400)
+df = pd.read_csv('apps/static/files/primos-3-mod-4.csv')
+df_aux = df.head(600)
+df_short = df_aux.tail(580)
 
 def main():
     df3m4= pd.DataFrame(columns=['num_primo'])
@@ -108,7 +110,7 @@ def modInverse(a, m):
     return x
 
 
-def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_a,clave_cifrar_b):
+def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_b):
     texto_claro_cifrar_clean = clean_input(texto_claro_cifrar).lower()
     lenght=3
     if len(texto_claro_cifrar_clean)%lenght!=0:
@@ -118,13 +120,12 @@ def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_a,clave_c
         return texto_claro_cifrar_clean,"La clave p no es un número primo."
     if not isprime(clave_cifrar_q):
         return texto_claro_cifrar_clean,"La clave q no es un número primo."
-    phi = (clave_cifrar_p-1)*(clave_cifrar_q-1)
-    if not isCoprime(clave_cifrar_a,phi):
-        return texto_claro_cifrar_clean,"La clave a no es primo relativo con \u03A6 = "+str(phi)
-    if not isCoprime(clave_cifrar_b,phi):
-        return texto_claro_cifrar_clean,"La clave b no es primo relativo con \u03A6 = "+str(phi)
+    if not prime3mod4(clave_cifrar_p):
+        return texto_claro_cifrar_clean,"La clave p no es un número primo \u2261 3 mod 4."
+    if not prime3mod4(clave_cifrar_q):
+        return texto_claro_cifrar_clean,"La clave q no es un número primo \u2261; 3 mod 4."   
     if  (clave_cifrar_p*clave_cifrar_p)<17577:
-        return texto_claro_cifrar_clean,"Los números p y q que se se escogieron son muy pequeños."
+        return texto_claro_cifrar_clean,"Los números p y q que se se escogieron son muy pequeños"  
 
     matriz_cifrada = []
     for i in range(0,len(texto_claro_cifrar_clean),lenght):
@@ -137,7 +138,7 @@ def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_a,clave_c
         num_aux = (matriz_aux[0]*26*26)+(matriz_aux[1]*26)+matriz_aux[2]
         print("num_aux")
         print(num_aux)
-        cifrado_aux = (num_aux**clave_cifrar_b)%(clave_cifrar_p*clave_cifrar_q)
+        cifrado_aux = (num_aux*(num_aux))%(clave_cifrar_p*clave_cifrar_q)
         print("cifrado_aux")
         print(cifrado_aux)
         matriz_cifrada.append(cifrado_aux)
@@ -148,7 +149,7 @@ def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_a,clave_c
         texto_cifrado = texto_cifrado+'-'+str(i)
     return texto_claro_cifrar_clean, texto_cifrado[1:]
 
-def decode(texto_cifrado_cifrar,clave_descifrar_p,clave_descifrar_q,clave_descifrar_a,clave_descifrar_b):
+def decode(texto_cifrado_cifrar,clave_descifrar_p,clave_descifrar_q,clave_descifrar_b):
     texto_cifrado_descifrar_clean = clean_text_RSA(texto_cifrado_cifrar)
     texto_cifrado_descifrar_separado = texto_cifrado_descifrar_clean.split("-")
     print("texto_cifrado_descifrar_separado")
@@ -157,50 +158,76 @@ def decode(texto_cifrado_cifrar,clave_descifrar_p,clave_descifrar_q,clave_descif
         return texto_cifrado_descifrar_clean,"La clave p no es un número primo."
     if not isprime(clave_descifrar_q):
         return texto_cifrado_descifrar_clean,"La clave q no es un número primo."
-    phi = (clave_descifrar_p-1)*(clave_descifrar_q-1)
-    if not isCoprime(clave_descifrar_a,phi):
-        return texto_cifrado_descifrar_clean,"La clave a no es primo relativo con \u03A6 = "+str(phi)
-    if not isCoprime(clave_descifrar_b,phi):
-        return texto_cifrado_descifrar_clean,"La clave b no es primo relativo con \u03A6 = "+str(phi)
+    if not prime3mod4(clave_descifrar_p):
+        return texto_cifrado_descifrar_clean,"La clave p no es un número primo \u2261 3 mod 4."
+    if not prime3mod4(clave_descifrar_q):
+        return texto_cifrado_descifrar_clean,"La clave q no es un número primo \u2261 3 mod 4."
     if  (clave_descifrar_p*clave_descifrar_p)<17577:
-        return texto_cifrado_descifrar_clean,"Los números p y q que se se escogieron son muy pequeños."
+        return texto_cifrado_descifrar_clean,"Los números p y q que se se escogieron son muy pequeños"  
+
+    gcd, a, b = gcdExtended(clave_descifrar_p,clave_descifrar_q)
+    n = clave_descifrar_p*clave_descifrar_q
 
     texto_claro = ""
     for i in texto_cifrado_descifrar_separado:
         num_aux = int(i)
         print("num_aux")
         print(num_aux)
-        cifrado_aux = (num_aux**clave_descifrar_a)%(clave_descifrar_p*clave_descifrar_q)
-        print("cifrado_aux")
-        print(cifrado_aux)
-        matriz_cifrada_aux = [int(cifrado_aux/676),int((cifrado_aux%676)/26), cifrado_aux%26]
-        print("matriz_cifrada_aux")
-        print(matriz_cifrada_aux)
-        texto_claro = texto_claro+input_to_letters(matriz_cifrada_aux)
-        print("matriz_cifrada_aux")
-        print(matriz_cifrada_aux)
+        r = (num_aux**(int((clave_descifrar_p+1)/4)))%(clave_descifrar_p)
+        s = (num_aux**(int((clave_descifrar_q+1)/4)))%(clave_descifrar_q)
+        
+        x = (a*clave_descifrar_p*s + b*clave_descifrar_q*r)%n
+        x2 = n-x
+        y = (a*clave_descifrar_p*s - b*clave_descifrar_q*r)%n
+        y2 = n-y
+
+        matriz_cifrada_aux = [[int(x/676),int((x%676)/26), x%26],[int(x2/676),int((x2%676)/26), x2%26],[int(y/676),int((y%676)/26), y%26],[int(y2/676),int((y2%676)/26), y2%26]]
+
+        matriz_cifrada_aux1 = [int(x/676),int((x%676)/26), x%26]
+        matriz_cifrada_aux2 = [int(x2/676),int((x2%676)/26), x2%26]
+        matriz_cifrada_aux3 = [int(y/676),int((y%676)/26), y%26]
+        matriz_cifrada_aux4 = [int(y2/676),int((y2%676)/26), y2%26]
+
+        print("matriz_cifrada_aux1")
+        print(matriz_cifrada_aux1)
+        print("matriz_cifrada_aux2")
+        print(matriz_cifrada_aux2)
+        print("matriz_cifrada_aux3")
+        print(matriz_cifrada_aux3)
+        print("matriz_cifrada_aux4")
+        print(matriz_cifrada_aux4)
+
+        matriz_cifrada = []
+
+        for i in matriz_cifrada_aux:
+            if i[0]<26 and i[1]<26:
+                matriz_cifrada.append(i)
+
+        print("matriz_cifrada")
+        print(matriz_cifrada)
+
+        texto_aux=""
+        for i in matriz_cifrada:
+            texto_aux = texto_aux+"+"+input_to_letters(i)         
+
+        texto_aux = texto_aux[1:]
+
+        print("texto_aux")
+        print(texto_aux)
+
+        texto_claro = texto_claro+texto_aux
     
-    return texto_cifrado_descifrar_clean.upper(), texto_claro.lower()
+    return texto_cifrado_descifrar_clean, texto_claro.lower()
 
 def generate_key():
-    p=3
-    q=7
+    p=7
+    q=11
     while p<100 or p>10000:
         p = df_short.sample()['num_primo'].values[0]
     while q<100 or q>10000:
         q = df_short.sample()['num_primo'].values[0]
-    phi = (p-1)*(q-1)
-    coprimes_phi =[]
-    for i in range(1,phi+1):
-        if len(coprimes_phi)>50:
-            break
-        if isCoprime(i,phi):
-            coprimes_phi.append(i)
-    if 1 in coprimes_phi:
-        coprimes_phi.remove(1)
-    a = random.choice(tuple(coprimes_phi))
-    b = modInverse(a,phi)
-    return p,q,a,b
+    b = randint(1, 25)
+    return p,q,b
 
 def criptoanalisis(texto_cifrado):
     alphanumeric = clean_input(texto_cifrado)
@@ -295,4 +322,18 @@ def clean_text_RSA(key):
     else:
         text = key_numbers
     return text
+
+def gcdExtended(a, b): 
+    # Base Case 
+    if a == 0 :  
+        return b,0,1
+             
+    gcd,x1,y1 = gcdExtended(b%a, a) 
+     
+    # Update x and y using results of recursive 
+    # call 
+    x = y1 - (b//a) * x1 
+    y = x1 
+     
+    return gcd,x,y
 

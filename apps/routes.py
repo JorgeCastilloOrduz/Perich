@@ -9,6 +9,7 @@ import apps.shift
 import apps.afin
 import apps.hill
 import apps.RSA
+import apps.Rabin
 import apps.NEAR
 import random
 import os
@@ -462,6 +463,50 @@ def rsa_decode():
                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
                                frecuencias_letras=letters, frecuencias_digramas=digrams, frecuencias_trigramas=trigrams, segment="rsa", scroll="criptoanalisis")
+
+
+@bp.route('/rabin_code', methods=["POST", "GET"])
+def rabin_code():
+    texto_claro_cifrar_clean = apps.hill.clean_input(request.form['texto_claro_cifrar']).lower()
+    clave_p = apps.afin.clean_key(request.form['clave_cifrar_p'])
+    clave_q = apps.afin.clean_key(request.form['clave_cifrar_q'])
+    clave_b = apps.afin.clean_key(request.form['clave_cifrar_b'])
+
+    if request.form['action'] == 'cifrar':
+        texto_claro_cifrar,texto_cifrado_cifrar = apps.Rabin.code(request.form['texto_claro_cifrar'],clave_p,clave_q,clave_b)
+        return render_template('routes/rabin.html', texto_claro_cifrar=texto_claro_cifrar, texto_cifrado_cifrar=texto_cifrado_cifrar, 
+                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q, clave_cifrar_b=clave_b,
+                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q, clave_descifrar_b=clave_b,
+                                segment='rabin', scroll="cifrar")
+    else:
+        p,q,b = apps.Rabin.generate_key()
+        return render_template('routes/rabin.html', texto_claro_cifrar=texto_claro_cifrar_clean, texto_cifrado_cifrar="",
+                                clave_cifrar_p=p, clave_cifrar_q=q, clave_cifrar_b=b,
+                                clave_descifrar_p=p, clave_descifrar_q=q, clave_descifrar_b=b,
+                                segment='rabin', scroll="cifrar")
+
+@bp.route('/rabin_decode', methods=["POST", "GET"])
+def rabin_decode():    
+    clave_p = apps.afin.clean_key(request.form['clave_descifrar_p'])
+    clave_q = apps.afin.clean_key(request.form['clave_descifrar_q'])
+    clave_b = apps.afin.clean_key(request.form['clave_descifrar_b'])
+
+    if request.form['action'] == 'descifrar':
+        texto_cifrado_descifrar, texto_claro_descifrar = apps.Rabin.decode(request.form['texto_cifrado_descifrar'],clave_p,clave_q,clave_b)
+
+        return render_template('routes/rabin.html', texto_claro_descifrar=texto_claro_descifrar, texto_cifrado_descifrar=texto_cifrado_descifrar, 
+                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q, clave_cifrar_b=clave_b,
+                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_b=clave_b,
+                                segment='rabin', scroll="descifrar")
+    else:
+        letters, digrams, trigrams = apps.afin.criptoanalisis(request.form['texto_cifrado_descifrar'])
+
+        return render_template('routes/rabin.html', texto_cifrado_descifrar = apps.afin.clean_input(request.form['texto_cifrado_descifrar']), texto_cifrado_criptoanalisis=apps.afin.clean_input(request.form['texto_cifrado_descifrar']),
+                               clave_cifrar_p=clave_p, clave_cifrar_q=clave_q, clave_cifrar_b=clave_b,
+                               clave_descifrar_p=clave_p, clave_descifrar_q=clave_q, clave_descifrar_b=clave_b,
+                               frecuencias_letras=letters, frecuencias_digramas=digrams, frecuencias_trigramas=trigrams, segment="rabin", scroll="criptoanalisis")
+
+
 
 
 @bp.route('/mint_nft', methods=["POST", "GET"])

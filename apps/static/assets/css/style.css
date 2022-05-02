@@ -284,7 +284,7 @@ p.text-muted {
 }
 .card .card-header h5:after {
   content: "";
-  background-color:black;
+  background-color:#77D2D6;
   position: absolute;
   left: -25px;
   top: 0;

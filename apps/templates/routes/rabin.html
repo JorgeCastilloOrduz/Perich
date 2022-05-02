@@ -98,10 +98,10 @@
                                             <h5>Cifrar</h5>
                                         </div>
                                         <div class="card-block">
-                                            <form action="/rsa_code" method="post">
+                                            <form action="/rabin_code" method="post">
                                                 <div class="form-group" >
                                                     <label for="texto_claro_cifrar">Texto claro</label>
-                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Módulo en construcción">{{texto_claro_cifrar}}</textarea>
+                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Texto claro">{{texto_claro_cifrar}}</textarea>
                                                 </div>
                                                 <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
                                                 <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
@@ -121,18 +121,18 @@
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label>B</label>                                                            
-                                                            <input type="text" name="clave_cifrar_B" class="form-control" placeholder="B" value="{{clave_cifrar_a}}"></input>
+                                                            <input type="text" name="clave_cifrar_b" class="form-control" placeholder="B" value="{{clave_cifrar_b}}"></input>
                                                         </div>
                                                     </div>                                                                                  
                                                 </div>                           
-                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar" disabled="true">Cifrar</button>                                        
-                                                <button type="submit" class="btn btn-outline-dark" name = "action" value="clave" disabled="true">Generar clave</button>
-                                                <button class="btn btn-outline-danger" onclick="location.href='/RSA.html'" type="button" disabled="true">Borrar todo</button>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar">Cifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-dark" name = "action" value="clave" >Generar clave</button>
+                                                <button class="btn btn-outline-danger" onclick="location.href='/rabin.html'" type="button">Borrar todo</button>
                                                 </span>
                                                 <div class="form-group" >
                                                     <br>
                                                     <label for="texto_cifrado_sustitucion">Texto cifrado</label>
-                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_sustitucion" rows="3" placeholder="Módulo en construcción">{{ texto_cifrado_cifrar }}</textarea>
+                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_sustitucion" rows="3" placeholder="">{{ texto_cifrado_cifrar }}</textarea>
                                                 </div>
                                             </form>
                                         </div>
@@ -150,10 +150,10 @@
                                             <h5>Descifrar</h5>
                                         </div>
                                         <div class="card-block">
-                                            <form action="/rsa_decode" method="post">
+                                            <form action="/rabin_decode" method="post">
                                                 <div class="form-group" >
                                                     <label for="texto_cifrado_descifrar">Texto cifrado</label>
-                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Módulo en construcción">{{texto_cifrado_descifrar}}</textarea>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_descifrar}}</textarea>
                                                 </div>
                                                 <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
                                                 <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
@@ -173,14 +173,12 @@
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label>B</label>                                                            
-                                                            <input type="text" name="clave_descifrar_a" class="form-control" placeholder="B" value="{{clave_descifrar_a}}"></input>
-                                                            <br>
-                                                            <p style="font-size: 10px">a &sdot; b &equiv; mod &Phi; (n)</p> 
+                                                            <input type="text" name="clave_descifrar_b" class="form-control" placeholder="B" value="{{clave_descifrar_b}}"></input>
                                                         </div>
                                                     </div>                                                                                  
                                                 </div>                            
-                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar" disabled="true">Descifrar</button>                                        
-                                                <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis" disabled="true">Criptoanálisis</button>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar">Descifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis">Criptoanálisis</button>
                                                 </span>
                                                 <div class="form-group" >
                                                     <label for="texto_claro_descifrar">Texto claro</label>
