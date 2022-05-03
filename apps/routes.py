@@ -426,7 +426,7 @@ def rsa_code():
         texto_claro_cifrar,texto_cifrado_cifrar = apps.RSA.code(request.form['texto_claro_cifrar'],clave_p,clave_q,clave_a,clave_b)
         phi = (clave_p-1)*(clave_q-1)
         phi_n = "\u03A6 (n) = "+str(phi)
-        return render_template('routes/rsa.html', texto_claro_cifrar=texto_claro_cifrar, texto_cifrado_cifrar=texto_cifrado_cifrar, phi_n = phi_n, 
+        return render_template('routes/RSA.html', texto_claro_cifrar=texto_claro_cifrar, texto_cifrado_cifrar=texto_cifrado_cifrar, phi_n = phi_n, 
                                 clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
                                 clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
                                 segment='rsa', scroll="cifrar")
@@ -434,7 +434,7 @@ def rsa_code():
         p,q,a,b = apps.RSA.generate_key()
         phi = (p-1)*(q-1)
         phi_n = "\u03A6 (n) = "+str(phi)
-        return render_template('routes/rsa.html', texto_claro_cifrar=texto_claro_cifrar_clean, texto_cifrado_cifrar="", phi_n = phi_n,
+        return render_template('routes/RSA.html', texto_claro_cifrar=texto_claro_cifrar_clean, texto_cifrado_cifrar="", phi_n = phi_n,
                                 clave_cifrar_p=p, clave_cifrar_q=q, clave_cifrar_a=a, clave_cifrar_b=b,
                                 clave_descifrar_p=p, clave_descifrar_q=q, clave_descifrar_a=a, clave_descifrar_b=b,
                                 segment='rsa', scroll="cifrar")
@@ -453,14 +453,14 @@ def rsa_decode():
         texto_cifrado_descifrar, texto_claro_descifrar = apps.RSA.decode(request.form['texto_cifrado_descifrar'],clave_p,clave_q,clave_a,clave_b)
         phi = (clave_p-1)*(clave_q-1)
         phi_n = "\u03A6 (n) = "+str(phi)
-        return render_template('routes/rsa.html', texto_claro_descifrar=texto_claro_descifrar, texto_cifrado_descifrar=texto_cifrado_descifrar, phi_n = phi_n, 
+        return render_template('routes/RSA.html', texto_claro_descifrar=texto_claro_descifrar, texto_cifrado_descifrar=texto_cifrado_descifrar, phi_n = phi_n, 
                                 clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
                                 clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
                                 segment='rsa', scroll="descifrar")
     else:
         letters, digrams, trigrams = apps.afin.criptoanalisis(request.form['texto_cifrado_descifrar'])
 
-        return render_template('routes/rsa.html', texto_cifrado_descifrar = apps.afin.clean_input(request.form['texto_cifrado_descifrar']), texto_cifrado_criptoanalisis=apps.afin.clean_input(request.form['texto_cifrado_descifrar']),
+        return render_template('routes/RSA.html', texto_cifrado_descifrar = apps.afin.clean_input(request.form['texto_cifrado_descifrar']), texto_cifrado_criptoanalisis=apps.afin.clean_input(request.form['texto_cifrado_descifrar']),
                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q,clave_cifrar_a=clave_a, clave_cifrar_b=clave_b,
                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q,clave_descifrar_a=clave_a, clave_descifrar_b=clave_b,
                                frecuencias_letras=letters, frecuencias_digramas=digrams, frecuencias_trigramas=trigrams, segment="rsa", scroll="criptoanalisis")
