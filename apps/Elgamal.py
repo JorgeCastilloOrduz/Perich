@@ -10,7 +10,7 @@ from random import randint
 abc = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 df = pd.read_csv('apps/static/files/primos-3-mod-4.csv')
 df_aux = df.head(600)
-df_short = df_aux.tail(580)
+df_short = df_aux.tail(475)
 
 def main():
     df3m4= pd.DataFrame(columns=['num_primo'])
@@ -110,38 +110,36 @@ def modInverse(a, m):
     return x
 
 
-def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_b):
+def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_alpha,clave_cifrar_a,clave_cifrar_m):
     texto_claro_cifrar_clean = clean_input(texto_claro_cifrar).lower()
-    lenght=3
+    lenght=2
     if len(texto_claro_cifrar_clean)%lenght!=0:
         for i in range(lenght-(len(texto_claro_cifrar_clean)%lenght)):
             texto_claro_cifrar_clean = texto_claro_cifrar_clean+"z"
     if not isprime(clave_cifrar_p):
-        return texto_claro_cifrar_clean,"La clave p no es un número primo."
-    if not isprime(clave_cifrar_q):
-        return texto_claro_cifrar_clean,"La clave q no es un número primo."
-    if not prime3mod4(clave_cifrar_p):
-        return texto_claro_cifrar_clean,"La clave p no es un número primo \u2261 3 mod 4."
-    if not prime3mod4(clave_cifrar_q):
-        return texto_claro_cifrar_clean,"La clave q no es un número primo \u2261; 3 mod 4."   
-    if  (clave_cifrar_p*clave_cifrar_p)<17577:
-        return texto_claro_cifrar_clean,"Los números p y q que se se escogieron son muy pequeños"  
+        return texto_claro_cifrar_clean,"La clave p no es un número primo"
+    if clave_cifrar_p<676:
+        return texto_claro_cifrar_clean,"La clave p es muy pequeña"
+    if not is_generator(clave_cifrar_alpha,clave_cifrar_p):
+        return texto_claro_cifrar_clean,"La clave \u03b1 no es un generador para "+str(clave_cifrar_p)
 
     matriz_cifrada = []
     for i in range(0,len(texto_claro_cifrar_clean),lenght):
+        beta = (clave_cifrar_alpha**clave_cifrar_a)%clave_cifrar_p
         string_aux = texto_claro_cifrar_clean[i:i+lenght]
         print("string_aux")
         print(string_aux)
         matriz_aux = input_to_numbers(string_aux) 
         print("matriz_aux")
         print(matriz_aux)
-        num_aux = (matriz_aux[0]*26*26)+(matriz_aux[1]*26)+matriz_aux[2]
+        num_aux = (matriz_aux[0]*26)+(matriz_aux[1])
         print("num_aux")
         print(num_aux)
-        cifrado_aux = (num_aux*(num_aux))%(clave_cifrar_p*clave_cifrar_q)
-        print("cifrado_aux")
-        print(cifrado_aux)
-        matriz_cifrada.append(cifrado_aux)
+        y_1 = (clave_cifrar_alpha**clave_cifrar_m)%clave_cifrar_p
+        y_2 = ((beta**clave_cifrar_m)*num_aux)%clave_cifrar_p
+        print("y1 y2")
+        print("("+str(y_1)+","+str(y_2)+")")
+        matriz_cifrada.append("("+str(y_1)+","+str(y_2)+")")
     print("matriz_cifrada")    
     print(matriz_cifrada)
     texto_cifrado = ""
@@ -149,88 +147,88 @@ def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_b):
         texto_cifrado = texto_cifrado+'-'+str(i)
     return texto_claro_cifrar_clean, texto_cifrado[1:]
 
-def decode(texto_cifrado_cifrar,clave_descifrar_p,clave_descifrar_q,clave_descifrar_b):
-    texto_cifrado_descifrar_clean = clean_text_RSA(texto_cifrado_cifrar)
+def decode(texto_cifrado_cifrar,clave_descifrar_p,clave_descifrar_alpha,clave_descifrar_a):
+    texto_cifrado_descifrar_clean = clean_text_elgamal(texto_cifrado_cifrar)
     texto_cifrado_descifrar_separado = texto_cifrado_descifrar_clean.split("-")
+    texto_cifrado_ready = []
     print("texto_cifrado_descifrar_separado")
     print(texto_cifrado_descifrar_separado)
+
+    print("texto_cifrado_descifrar_separado")
+    print(texto_cifrado_descifrar_separado)
+
+    for i in texto_cifrado_descifrar_separado:
+        aux = i.replace("(","").replace(")","")
+        aux_split = aux.split(",")
+        print("aux_split")
+        print(aux_split)
+        texto_cifrado_ready.append(aux_split)
+
+    print("texto_cifrado_ready")
+    print(texto_cifrado_ready)
+
     if not isprime(clave_descifrar_p):
         return texto_cifrado_descifrar_clean,"La clave p no es un número primo."
-    if not isprime(clave_descifrar_q):
-        return texto_cifrado_descifrar_clean,"La clave q no es un número primo."
-    if not prime3mod4(clave_descifrar_p):
-        return texto_cifrado_descifrar_clean,"La clave p no es un número primo \u2261 3 mod 4."
-    if not prime3mod4(clave_descifrar_q):
-        return texto_cifrado_descifrar_clean,"La clave q no es un número primo \u2261 3 mod 4."
-    if  (clave_descifrar_p*clave_descifrar_p)<17577:
-        return texto_cifrado_descifrar_clean,"Los números p y q que se se escogieron son muy pequeños"  
-
-    gcd, a, b = gcdExtended(clave_descifrar_p,clave_descifrar_q)
-    n = clave_descifrar_p*clave_descifrar_q
-
+    if clave_descifrar_p<676:
+        return texto_cifrado_descifrar_clean,"La clave p es muy pequeña"
+    if not is_generator(clave_descifrar_alpha,clave_descifrar_p):
+        return texto_cifrado_descifrar_clean,"La clave \u03b1 no es un generador para "+str(clave_descifrar_p)
+    
     texto_claro = ""
-    for i in texto_cifrado_descifrar_separado:
-        num_aux = int(i)
+    for i in texto_cifrado_ready:
+        y_1 = int(i[0])
+        y_2 = int(i[1])
+
+        aux1 = (y_1**clave_descifrar_a)%clave_descifrar_p
+        inv_aux1 = modInverse(aux1,clave_descifrar_p)
+        num_aux = (inv_aux1*y_2)%clave_descifrar_p
+
         print("num_aux")
         print(num_aux)
-        r = (num_aux**(int((clave_descifrar_p+1)/4)))%(clave_descifrar_p)
-        s = (num_aux**(int((clave_descifrar_q+1)/4)))%(clave_descifrar_q)
-        
-        x = (a*clave_descifrar_p*s + b*clave_descifrar_q*r)%n
-        x2 = n-x
-        y = (a*clave_descifrar_p*s - b*clave_descifrar_q*r)%n
-        y2 = n-y
+        matriz_cifrada_aux = [int((num_aux)/26), num_aux%26]
 
-        matriz_cifrada_aux = [[int(x/676),int((x%676)/26), x%26],[int(x2/676),int((x2%676)/26), x2%26],[int(y/676),int((y%676)/26), y%26],[int(y2/676),int((y2%676)/26), y2%26]]
 
-        matriz_cifrada_aux1 = [int(x/676),int((x%676)/26), x%26]
-        matriz_cifrada_aux2 = [int(x2/676),int((x2%676)/26), x2%26]
-        matriz_cifrada_aux3 = [int(y/676),int((y%676)/26), y%26]
-        matriz_cifrada_aux4 = [int(y2/676),int((y2%676)/26), y2%26]
+        print("matriz_cifrada_aux")
+        print(matriz_cifrada_aux)
 
-        # print("matriz_cifrada_aux1")
-        # print(matriz_cifrada_aux1)
-        # print("matriz_cifrada_aux2")
-        # print(matriz_cifrada_aux2)
-        # print("matriz_cifrada_aux3")
-        # print(matriz_cifrada_aux3)
-        # print("matriz_cifrada_aux4")
-        # print(matriz_cifrada_aux4)
-
-        matriz_cifrada = []
-
-        for i in matriz_cifrada_aux:
-            if i[0]<26 and i[1]<26:
-                matriz_cifrada.append(i)
-
-        print("matriz_cifrada")
-        print(matriz_cifrada)
-
-        texto_aux=""
-        for i in matriz_cifrada:
-            texto_aux = texto_aux+"+"+input_to_letters(i)         
-
-        texto_aux = "["+ texto_aux[1:]+"]"
-
-        print("texto_aux")
-        print(texto_aux)
-
-        texto_claro = texto_claro+texto_aux
+        texto_claro = texto_claro+input_to_letters(matriz_cifrada_aux) 
     
     return texto_cifrado_descifrar_clean, texto_claro.lower()
 
-
 def generate_key():
-    p=7
-    q=11
+    p=11
     while p<100 or p>10000:
-        p = df_short.sample()['num_primo'].values[0]
-    while q<100 or q>10000:
-        q = df_short.sample()['num_primo'].values[0]
-    b = randint(1, 25)
-    return p,q,b
+        p = int(df_short.sample()['num_primo'].values[0])
+    gens = generators(p)
+    alpha = random.choice(gens)
+    print(gens)
+    a = randint(2,p-3)
+    m = randint(2,p-3)
 
+    return p,alpha,a,m
 
+def generators(n):
+    s = set(range(1, n))
+    results = []
+    for a in s:
+        g = set()
+        for x in s:
+            g.add((a**x) % n)
+        if g == s:
+            results.append(a)
+            if len(results)>3:
+                break
+    return results
+
+def is_generator(n,p):
+    s = set(range(1, p))
+    g = set()
+    for x in s:
+        g.add((n**x) % p)
+    if g == s:
+        return True        
+    else:    
+        return False
 
 def criptoanalisis(texto_cifrado):
     alphanumeric = clean_input(texto_cifrado)
@@ -315,10 +313,10 @@ def clean_input(input):
     return alphanumeric_claro.upper()
 
 
-def clean_text_RSA(key):
+def clean_text_elgamal(key):
     key_numbers = ""
     for character in key:
-        if character.isdigit() or character=='-':
+        if character.isdigit() or character=='-' or character==',' or character=='(' or character==')':
             key_numbers += character
     if key_numbers=="":
         text = 0

@@ -40,8 +40,11 @@
                                         <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Ataca</a>
                                     </li> -->
@@ -53,8 +56,11 @@
                                         <a class="nav-link text-uppercase active" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
                                     </li> -->
@@ -66,8 +72,11 @@
                                         <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase active" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
                                     </li> -->
@@ -79,8 +88,11 @@
                                         <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
                                     </li> -->
@@ -178,13 +190,33 @@
                                                     </div>                                                                                  
                                                 </div>                            
                                                 <button type="submit" class="btn btn-warning" name ="action" value="descifrar">Descifrar</button>                                        
-                                                <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis">Criptoanálisis</button>
+                                                <!-- <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis">Criptoanálisis</button> -->
                                                 </span>
                                                 <div class="form-group" >
                                                     <label for="texto_claro_descifrar">Texto claro</label>
                                                     <textarea class="form-control" name="texto_claro_descifrar" id="texto_claro_descifrar" rows="3" placeholder="Módulo en construcción">{{texto_claro_descifrar}}</textarea>
                                                 </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- TUTORIAL -->
+                                {% if scroll == "tutorial" %}
+                                <div class="tab-pane fade show active" id="tutorial" role="tabpanel" aria-labelledby="tutorial-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="tutorial" role="tabpanel" aria-labelledby="tutorial-tab">                                    
+                                {% endif %}
+                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Tutorial</h5>
+                                        </div>
+                                        <div class="card-block">
+                                            <p style="color:black">Hola, gracias por utilizar Perich. En este pequeño tutorial podrás ver cómo funciona el criptosistema Rabin en Perich.</p>                                                         
+                                        <br>
+                                        <div class="container">                                            
+                                            <iframe class="responsive-iframe" src="https://www.youtube.com/embed/g-ZvQm8M2no" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>

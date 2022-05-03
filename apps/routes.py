@@ -10,6 +10,7 @@ import apps.afin
 import apps.hill
 import apps.RSA
 import apps.Rabin
+import apps.Elgamal
 import apps.NEAR
 import random
 import os
@@ -505,6 +506,47 @@ def rabin_decode():
                                clave_cifrar_p=clave_p, clave_cifrar_q=clave_q, clave_cifrar_b=clave_b,
                                clave_descifrar_p=clave_p, clave_descifrar_q=clave_q, clave_descifrar_b=clave_b,
                                frecuencias_letras=letters, frecuencias_digramas=digrams, frecuencias_trigramas=trigrams, segment="rabin", scroll="criptoanalisis")
+
+
+@bp.route('/elgamal_code', methods=["POST", "GET"])
+def elgamal_code():
+    texto_claro_cifrar_clean = apps.hill.clean_input(request.form['texto_claro_cifrar']).lower()
+    clave_p = apps.afin.clean_key(request.form['clave_cifrar_p'])
+    clave_alpha = apps.afin.clean_key(request.form['clave_cifrar_alpha'])
+    clave_a = apps.afin.clean_key(request.form['clave_cifrar_a'])
+    clave_m = apps.afin.clean_key(request.form['clave_cifrar_m'])
+
+    if request.form['action'] == 'cifrar':
+        texto_claro_cifrar,texto_cifrado_cifrar = apps.Elgamal.code(request.form['texto_claro_cifrar'],clave_p,clave_alpha,clave_a,clave_m)
+        return render_template('routes/elgamal.html', texto_claro_cifrar=texto_claro_cifrar, texto_cifrado_cifrar=texto_cifrado_cifrar, 
+                                clave_cifrar_p=clave_p, clave_cifrar_alpha=clave_alpha, clave_cifrar_a=clave_a, clave_cifrar_m=clave_m,
+                                clave_descifrar_p=clave_p, clave_descifrar_alpha=clave_alpha, clave_descifrar_a=clave_a, clave_descifrar_m=clave_m,
+                                segment='elgamal', scroll="cifrar")
+    else:
+        p,alpha,a,m = apps.Elgamal.generate_key()
+        return render_template('routes/elgamal.html', texto_claro_cifrar=texto_claro_cifrar_clean, texto_cifrado_cifrar="",
+                                clave_cifrar_p=p, clave_cifrar_alpha=alpha, clave_cifrar_a=a, clave_cifrar_m=m,
+                                clave_descifrar_p=p, clave_descifrar_alpha=alpha, clave_descifrar_a=a, clave_descifrar_m=m,
+                                segment='elgamal', scroll="cifrar")
+
+@bp.route('/elgamal_decode', methods=["POST", "GET"])
+def elgamal_decode():    
+    clave_p = apps.afin.clean_key(request.form['clave_descifrar_p'])
+    clave_alpha = apps.afin.clean_key(request.form['clave_descifrar_alpha'])
+    clave_a = apps.afin.clean_key(request.form['clave_descifrar_a'])
+    clave_m = apps.afin.clean_key(request.form['clave_descifrar_m'])
+
+    if request.form['action'] == 'descifrar':
+        texto_cifrado_descifrar, texto_claro_descifrar = apps.Elgamal.decode(request.form['texto_cifrado_descifrar'],clave_p,clave_alpha,clave_a)
+
+        return render_template('routes/elgamal.html', texto_claro_descifrar=texto_claro_descifrar, texto_cifrado_descifrar=texto_cifrado_descifrar, 
+                                clave_cifrar_p=clave_p, clave_cifrar_alpha=clave_alpha, clave_cifrar_a=clave_a, clave_cifrar_m=clave_m,
+                                clave_descifrar_p=clave_p, clave_descifrar_alpha=clave_alpha, clave_descifrar_a=clave_a, clave_descifrar_m=clave_m,
+                                segment='elgamal', scroll="descifrar")
+    else:
+        letters, digrams, trigrams = apps.afin.criptoanalisis(request.form['texto_cifrado_descifrar'])
+
+        return render_template('routes/elgamal.html', segment="elgamal", scroll="criptoanalisis")
 
 
 

@@ -123,7 +123,7 @@ def code(texto_claro_cifrar,clave_cifrar_p,clave_cifrar_q,clave_cifrar_a,clave_c
         return texto_claro_cifrar_clean,"La clave a no es primo relativo con \u03A6 = "+str(phi)
     if not isCoprime(clave_cifrar_b,phi):
         return texto_claro_cifrar_clean,"La clave b no es primo relativo con \u03A6 = "+str(phi)
-    if  (clave_cifrar_p*clave_cifrar_p)<17577:
+    if  (clave_cifrar_p*clave_cifrar_q)<17577:
         return texto_claro_cifrar_clean,"Los números p y q que se se escogieron son muy pequeños."
 
     matriz_cifrada = []

@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} RSA {% endblock %} 
+{% block title %} elgamal {% endblock %} 
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -40,8 +40,11 @@
                                         <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase active" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Ataca</a>
                                     </li> -->
@@ -53,8 +56,11 @@
                                         <a class="nav-link text-uppercase active" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
                                     </li> -->
@@ -66,8 +72,11 @@
                                         <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase active" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
                                     </li> -->
@@ -79,8 +88,11 @@
                                         <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#descifrar" role="tab" aria-controls="descifrar" aria-selected="false">Descifrar</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                        <a class="nav-link text-uppercase" id="descifrar-tab" data-toggle="tab" href="#tutorial" role="tab" aria-controls="tutorial" aria-selected="false">Tutorial</a>
                                     </li>
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link text-uppercase" id="criptoanalisis-tab" data-toggle="tab" href="#criptoanalisis" role="tab" aria-controls="criptoanalisis" aria-selected="false">Criptoanálisis</a>
+                                    </li> -->
                                     <!-- <li class="nav-item">
                                         <a class="nav-link text-uppercase" id="atacar-tab" data-toggle="tab" href="#atacar" role="tab" aria-controls="atacar" aria-selected="false">Atacar</a>
                                     </li> -->
@@ -98,10 +110,10 @@
                                             <h5>Cifrar</h5>
                                         </div>
                                         <div class="card-block">
-                                            <form action="/rsa_code" method="post">
+                                            <form action="/elgamal_code" method="post">
                                                 <div class="form-group" >
                                                     <label for="texto_claro_cifrar">Texto claro</label>
-                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Módulo en construcción">{{texto_claro_cifrar}}</textarea>
+                                                    <textarea class="form-control" name="texto_claro_cifrar" id="texto_claro_cifrar" rows="3" placeholder="Texto claro">{{texto_claro_cifrar}}</textarea>
                                                 </div>
                                                 <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
                                                 <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
@@ -115,26 +127,26 @@
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label>&alpha;</label>
-                                                            <input type="text" name="clave_cifrar_q" class="form-control" placeholder="&alpha;" value="{{clave_cifrar_q}}"></input>
+                                                            <input type="text" name="clave_cifrar_alpha" class="form-control" placeholder="&alpha;" value="{{clave_cifrar_alpha}}"></input>
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label>a</label>                                                            
                                                             <input type="text" name="clave_cifrar_a" class="form-control" placeholder="a" value="{{clave_cifrar_a}}"></input>
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <label>&beta;</label>
-                                                            <input type="text" name="clave_cifrar_b" class="form-control" placeholder="&beta;" value="{{clave_cifrar_b}}"></input>
+                                                            <label>M</label>                                                            
+                                                            <input type="text" name="clave_cifrar_m" class="form-control" placeholder="M" value="{{clave_cifrar_m}}"></input>
                                                         </div>
                                                     </div>                                                                                  
                                                 </div>                           
-                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar" disabled="true">Cifrar</button>                                        
-                                                <button type="submit" class="btn btn-outline-dark" name = "action" value="clave" disabled="true">Generar clave</button>
-                                                <button class="btn btn-outline-danger" onclick="location.href='/RSA.html'" type="button" disabled="true" >Borrar todo</button>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="cifrar" >Cifrar</button>                                        
+                                                <button type="submit" class="btn btn-outline-dark" name = "action" value="clave">Generar clave</button>
+                                                <button class="btn btn-outline-danger" onclick="location.href='/elgamal.html'" type="button">Borrar todo</button>
                                                 </span>
                                                 <div class="form-group" >
                                                     <br>
                                                     <label for="texto_cifrado_sustitucion">Texto cifrado</label>
-                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_sustitucion" rows="3" placeholder="Módulo en construcción">{{ texto_cifrado_cifrar }}</textarea>
+                                                    <textarea class="form-control" name="texto_cifrado_cifrar" id="texto_cifrado_sustitucion" rows="3" placeholder="">{{ texto_cifrado_cifrar }}</textarea>
                                                 </div>
                                             </form>
                                         </div>
@@ -152,10 +164,10 @@
                                             <h5>Descifrar</h5>
                                         </div>
                                         <div class="card-block">
-                                            <form action="/rsa_decode" method="post">
+                                            <form action="/elgamal_decode" method="post">
                                                 <div class="form-group" >
                                                     <label for="texto_cifrado_descifrar">Texto cifrado</label>
-                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Módulo en construcción">{{texto_cifrado_descifrar}}</textarea>
+                                                    <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Texto cifrado">{{texto_cifrado_descifrar}}</textarea>
                                                 </div>
                                                 <p style="font-size: 9px">*La aplicación trabaja con textos en inglés. Por favor no introduzca tildes.</p>
                                                 <p style="font-size: 9px">**La aplicación omitirá los números, los espacios y los caracteres especiales (incluida la letra ñ).</p>
@@ -165,30 +177,50 @@
                                                     <div class="row">
                                                         <div class="col-sm-3">
                                                             <label>p</label>
-                                                            <input type="text" name="clave_cifrar_p" class="form-control" placeholder="p" value="{{clave_cifrar_p}}"></input>
+                                                            <input type="text" name="clave_descifrar_p" class="form-control" placeholder="p" value="{{clave_descifrar_p}}"></input>
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label>&alpha;</label>
-                                                            <input type="text" name="clave_cifrar_q" class="form-control" placeholder="&alpha;" value="{{clave_cifrar_q}}"></input>
+                                                            <input type="text" name="clave_descifrar_alpha" class="form-control" placeholder="&alpha;" value="{{clave_descifrar_alpha}}"></input>
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label>a</label>                                                            
-                                                            <input type="text" name="clave_cifrar_a" class="form-control" placeholder="a" value="{{clave_cifrar_a}}"></input>
+                                                            <input type="text" name="clave_descifrar_a" class="form-control" placeholder="a" value="{{clave_descifrar_a}}"></input>
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <label>&beta;</label>
-                                                            <input type="text" name="clave_cifrar_b" class="form-control" placeholder="&beta;" value="{{clave_cifrar_b}}"></input>
+                                                            <label>M</label>                                                            
+                                                            <input type="text" name="clave_descifrar_m" class="form-control" placeholder="M" value="{{clave_descifrar_m}}"></input>
                                                         </div>
                                                     </div>                                                                                  
                                                 </div>                               
-                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar" disabled="true">Descifrar</button>                                        
-                                                <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis" disabled="true">Criptoanálisis</button>
+                                                <button type="submit" class="btn btn-warning" name ="action" value="descifrar">Descifrar</button>                                        
+                                                <!-- <button type="submit" class="btn btn-outline-dark" name ="action" value="criptoanalisis">Criptoanálisis</button> -->
                                                 </span>
                                                 <div class="form-group" >
                                                     <label for="texto_claro_descifrar">Texto claro</label>
-                                                    <textarea class="form-control" name="texto_claro_descifrar" id="texto_claro_descifrar" rows="3" placeholder="Módulo en construcción">{{texto_claro_descifrar}}</textarea>
+                                                    <textarea class="form-control" name="texto_claro_descifrar" id="texto_claro_descifrar" rows="3" placeholder="">{{texto_claro_descifrar}}</textarea>
                                                 </div>
                                             </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- TUTORIAL -->
+                                {% if scroll == "tutorial" %}
+                                <div class="tab-pane fade show active" id="tutorial" role="tabpanel" aria-labelledby="tutorial-tab">                                    
+                                {% else %}
+                                <div class="tab-pane fade" id="tutorial" role="tabpanel" aria-labelledby="tutorial-tab">                                    
+                                {% endif %}
+                                
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Tutorial</h5>
+                                        </div>                                        
+                                        <div class="card-block">
+                                            <p style="color:black">Hola, gracias por utilizar Perich. En este pequeño tutorial podrás ver cómo funciona el criptosistema ElGamal en Perich.</p>                                                         
+                                        <br>
+                                        <div class="container">                                            
+                                            <iframe class="responsive-iframe" src="https://www.youtube.com/embed/V79ARVHoBJw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -203,7 +235,7 @@
                                             <h5>Criptoanálisis</h5>
                                         </div>
                                         <div class="card-block">
-                                            <form action="/rsa_decode" method="post">
+                                            <form action="/elgamal_decode" method="post">
                                                 <div class="form-group" >
                                                     <label for="texto_cifrado_descifrar">Texto cifrado</label>
                                                     <textarea class="form-control" name="texto_cifrado_descifrar" id="texto_cifrado_descifrar" rows="3" placeholder="Módulo en construcción">{{texto_cifrado_criptoanalisis}}</textarea>

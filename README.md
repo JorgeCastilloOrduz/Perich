@@ -21,7 +21,7 @@ $ virtualenv env
 $ .\env\Scripts\activate
 $
 $ # Set the FLASK_APP environment variable
-$ (Unix/Mac) export FLASK_APP=run.py
+$ (Unix/Mac) export FLASK_APP=application.py
 $ (Windows) set FLASK_APP=run.py
 $ (Powershell) $env:FLASK_APP = ".\run.py"
 $

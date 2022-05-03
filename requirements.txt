@@ -18,3 +18,4 @@ poppler-utils
 ipfs-api
 pandas
 sympy
+ccepy
